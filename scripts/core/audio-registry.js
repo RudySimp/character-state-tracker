@@ -1,0 +1,6 @@
+const catalog = [
+  ["exhaustionDeep", "exhaustion-deep.ogg"], ["hypothermiaDeep", "hypothermia-deep.ogg"], ["overheatDeep", "overheat-deep.ogg"], ["stressDeep", "stress-deep.ogg"], ["panicDeep", "panic-deep.ogg"], ["calmDeep", "calm-deep.ogg"], ["confusionDeep", "confusion-deep.ogg"], ["injuryDeep", "injury-deep.ogg"], ["hungerDeep", "hunger-deep.ogg"], ["thirstDeep", "thirst-deep.ogg"],
+  ["bleeding", "bleeding.ogg"], ["poisoning", "poisoning.ogg"], ["nausea", "nausea.ogg"], ["suffocation", "suffocation.ogg"], ["adrenaline", "adrenaline.ogg"], ["shock", "shock.ogg"], ["fracture", "fracture.ogg"], ["recovery", "recovery.ogg"], ["fainting", "fainting.ogg"], ["regainingConsciousness", "regaining-consciousness.ogg"], ["vertigo", "vertigo.ogg"], ["tremor", "tremor.ogg"], ["numbness", "numbness.ogg"], ["paralysis", "paralysis.ogg"], ["muscleCramp", "muscle-cramp.ogg"], ["convulsion", "convulsion.ogg"], ["intoxication", "intoxication.ogg"], ["severePain", "severe-pain.ogg"], ["criticalCondition", "critical-condition.ogg"], ["deepRest", "deep-rest.ogg"]
+];
+export const AUDIO_CUE_CATALOG = Object.freeze(Object.fromEntries(catalog.map(([key, file]) => [key, `assets/audio/sfx/${file}`])));
+export const AUDIO_CUES = AUDIO_CUE_CATALOG;

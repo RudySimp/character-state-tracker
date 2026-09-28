@@ -1,0 +1,112 @@
+<section class="cst-root" aria-label="{{localize 'CST.Title'}}">
+  <header class="cst-toolbar">
+    <div class="cst-brand">
+      <span class="cst-mark" aria-hidden="true">✦</span>
+      <div><h1>{{localize "CST.Title"}}</h1><small>{{#if data}}{{data.profile.name}}{{/if}}</small></div>
+    </div>
+    <div class="cst-actions">
+      <button type="button" data-action="new-profile" {{#unless isGM}}disabled{{/unless}}><i class="fa-solid fa-plus"></i> {{localize "CST.NewProfile"}}</button>
+      {{#if data}}
+        <button type="button" data-action="open-journal"><i class="fa-solid fa-book-open"></i> {{localize "CST.OpenJournal"}}</button>
+        <button type="button" data-action="export-json"><i class="fa-solid fa-file-export"></i> {{localize "CST.Export"}}</button>
+      {{/if}}
+    </div>
+  </header>
+
+  {{#if empty}}
+    <div class="cst-empty">
+      <img src="assets/ui/core/overview.png" alt="" loading="lazy">
+      <h2>{{localize "CST.Empty"}}</h2><p>{{localize "CST.EmptyHint"}}</p>
+      <button type="button" data-action="new-profile" {{#unless isGM}}disabled{{/unless}}>{{localize "CST.CreateProfile"}}</button>
+    </div>
+  {{else}}
+    <nav class="cst-profiles" aria-label="{{localize 'CST.Profiles'}}">
+      {{#each journals}}<button type="button" data-action="select-profile" data-id="{{id}}" class="{{#if active}}active{{/if}}" title="{{name}}">{{#if archived}}<i class="fa-solid fa-box-archive"></i>{{/if}}{{name}}</button>{{/each}}
+    </nav>
+    {{#if future}}<div class="cst-warning" role="alert">{{localize "CST.FutureSchema"}}</div>{{/if}}
+    <div class="cst-ribbon" aria-label="{{localize 'CST.StatusRibbon'}}">
+      {{#each ribbon}}<div class="cst-ribbon-item {{status}}"><img src="{{art}}" alt="" loading="lazy"><span>{{label}}</span><strong>{{value}}</strong></div>{{/each}}
+    </div>
+
+    <div class="cst-layout">
+      <aside class="cst-sidebar">
+        <div class="cst-profile-card">
+          <div class="cst-avatar">{{#if data.profile.image}}<img src="{{data.profile.image}}" alt="{{data.profile.name}}" loading="lazy">{{else}}<i class="fa-solid fa-user" aria-hidden="true"></i>{{/if}}</div>
+          <h2>{{data.profile.name}}</h2><small>{{localize "CST.Revision"}} {{data.revision}}</small>
+        </div>
+        <div class="cst-sidebar-actions">
+          {{#if data.profile.archived}}<button type="button" data-action="restore-profile" {{#unless isGM}}disabled{{/unless}}>{{localize "CST.Restore"}}</button>{{else}}<button type="button" data-action="archive-profile" {{#unless isGM}}disabled{{/unless}}>{{localize "CST.Archive"}}</button>{{/if}}
+          <button type="button" data-action="delete-profile" {{#unless isGM}}disabled{{/unless}}>{{localize "CST.Delete"}}</button>
+        </div>
+        <div class="cst-body-preview">
+          <div class="cst-view-toggle"><button type="button" data-action="set-body-view" data-view="front" class="{{#if bodyFront}}active{{/if}}">{{localize "CST.Front"}}</button><button type="button" data-action="set-body-view" data-view="back" class="{{#if bodyBack}}active{{/if}}">{{localize "CST.Back"}}</button></div>
+          <div class="cst-body-art">
+            <img src="{{selectedPartArt}}" alt="{{selectedPart.name}}" loading="lazy">
+            <svg viewBox="0 0 180 300" role="img" aria-label="{{localize 'CST.BodyMap'}}">
+              <title>{{localize "CST.BodyMap"}}</title>
+              <circle cx="90" cy="27" r="18" data-action="set-body-part" data-part="head"></circle>
+              <rect x="76" y="48" width="28" height="26" rx="8" data-action="set-body-part" data-part="neck"></rect>
+              {{#if bodyBack}}<rect x="55" y="73" width="70" height="110" rx="18" data-action="set-body-part" data-part="back"></rect>{{else}}<rect x="55" y="73" width="70" height="72" rx="18" data-action="set-body-part" data-part="torso"></rect><rect x="62" y="145" width="56" height="38" rx="12" data-action="set-body-part" data-part="abdomen"></rect>{{/if}}
+              <rect x="27" y="76" width="25" height="75" rx="12" data-action="set-body-part" data-part="leftArm"></rect><rect x="128" y="76" width="25" height="75" rx="12" data-action="set-body-part" data-part="rightArm"></rect>
+              <circle cx="39" cy="163" r="13" data-action="set-body-part" data-part="leftHand"></circle><circle cx="141" cy="163" r="13" data-action="set-body-part" data-part="rightHand"></circle>
+              <rect x="61" y="180" width="25" height="85" rx="12" data-action="set-body-part" data-part="leftLeg"></rect><rect x="94" y="180" width="25" height="85" rx="12" data-action="set-body-part" data-part="rightLeg"></rect>
+              <rect x="59" y="264" width="29" height="14" rx="6" data-action="set-body-part" data-part="leftFoot"></rect><rect x="92" y="264" width="29" height="14" rx="6" data-action="set-body-part" data-part="rightFoot"></rect>
+            </svg>
+          </div>
+        </div>
+        <h3>{{localize "CST.BodyMap"}}</h3>
+        <div class="cst-body-map" role="list">{{#each bodyParts}}<button type="button" data-action="set-body-part" data-part="{{id}}" class="{{status}} {{#if active}}active{{/if}}" {{#if disabled}}disabled{{/if}} title="{{name}}: {{value}}/100 · {{../data.body.pain.label}} {{pain}}/100 · {{injuries}}"><span>{{name}}</span><strong>{{value}}</strong><small>{{injuries}}</small></button>{{/each}}</div>
+        <h3>{{localize "CST.ActiveProblems"}}</h3>
+        <ul class="cst-problems">{{#each problems}}<li><strong>{{label}}</strong><span>{{value}}</span></li>{{else}}<li>{{localize "CST.NoProblems"}}</li>{{/each}}</ul>
+      </aside>
+
+      <main class="cst-content">
+        <nav class="cst-sections" aria-label="{{localize 'CST.Sections'}}">{{#each sections}}<button type="button" data-action="set-section" data-section="{{id}}" class="{{#if active}}active{{/if}}"><img src="{{art}}" alt="" loading="lazy"><span>{{label}}</span></button>{{/each}}</nav>
+        <section class="cst-panel">
+          <div class="cst-panel-heading"><img src="{{sectionArt}}" alt="" loading="lazy"><div><h2>{{sectionLabel}}</h2>{{#if hasLegacy}}<small>{{localize "CST.LegacyDetected"}}</small>{{/if}}</div></div>
+
+          {{#if isBody}}
+            <div class="cst-overview-controls">
+              <article class="cst-card"><h3>{{localize "CST.OverallState"}}</h3><strong>{{data.body.overall.value}}/100</strong><input type="range" min="0" max="100" value="{{data.body.overall.value}}" data-path="body.overall.value" data-action="metric-range"><input type="number" min="0" max="100" value="{{data.body.overall.value}}" data-path="body.overall.value" data-action="metric-number"><input type="text" maxlength="500" data-reason-for="body.overall.value" placeholder="{{localize 'CST.Reason'}}"><div class="cst-quick"><button type="button" data-action="metric-adjust" data-path="body.overall.value" data-delta="-10">−10</button><button type="button" data-action="metric-adjust" data-path="body.overall.value" data-delta="10">+10</button></div></article>
+              <article class="cst-card"><h3>{{localize "CST.LocalPain"}}</h3><strong>{{data.body.pain.value}}/100</strong><input type="range" min="0" max="100" value="{{data.body.pain.value}}" data-path="body.pain.value" data-action="metric-range"><input type="number" min="0" max="100" value="{{data.body.pain.value}}" data-path="body.pain.value" data-action="metric-number"><input type="text" maxlength="500" data-reason-for="body.pain.value" placeholder="{{localize 'CST.Reason'}}"><div class="cst-quick"><button type="button" data-action="metric-adjust" data-path="body.pain.value" data-delta="-10">−10</button><button type="button" data-action="metric-adjust" data-path="body.pain.value" data-delta="10">+10</button></div></article>
+            </div>
+            <article class="cst-card">
+              <h3>{{selectedPart.name}}</h3><div class="cst-value">{{selectedPart.value}}<small>/100</small></div>
+              <input type="range" min="0" max="100" value="{{selectedPart.value}}" data-path="body.parts.{{part}}.value" data-action="metric-range" aria-label="{{selectedPart.name}}">
+              <input type="number" min="0" max="100" value="{{selectedPart.value}}" data-path="body.parts.{{part}}.value" data-action="metric-number">
+              <input type="text" maxlength="500" data-reason-for="body.parts.{{part}}.value" placeholder="{{localize 'CST.Reason'}}">
+              <div class="cst-quick">{{#each presets}}<button type="button" data-action="body-preset" data-value="{{this}}" title="{{localize 'CST.Preset'}} {{this}}">{{this}}</button>{{/each}}</div>
+              <label>{{localize "CST.LocalPain"}}<input type="number" min="0" max="100" value="{{selectedPart.localPain}}" data-path="body.parts.{{part}}.localPain" data-action="metric-number"></label>
+              <label class="cst-notes-field">{{localize "CST.Notes"}}<textarea data-path="body.parts.{{part}}.notes">{{selectedPart.notes}}</textarea></label>
+              <div class="cst-injury-heading"><h4>{{localize "CST.Injuries"}}</h4><button type="button" data-action="add-injury" {{#unless isGM}}disabled{{/unless}}>{{localize "CST.AddInjury"}}</button></div>
+              {{#each selectedPart.injuries}}<div class="cst-injury"><img src="assets/ui/injury-states/{{#if active}}injury{{else}}healthy{{/if}}.png" alt="" loading="lazy"><strong>{{name}}</strong><span>{{severity}}/5 · {{phase}}</span><button type="button" data-action="edit-injury" data-id="{{id}}" {{#unless ../../isGM}}disabled{{/unless}}>{{localize "CST.Edit"}}</button>{{#if active}}<button type="button" data-action="archive-injury" data-id="{{id}}">{{localize "CST.Archive"}}</button>{{else}}<button type="button" data-action="restore-injury" data-id="{{id}}">{{localize "CST.Restore"}}</button>{{/if}}</div>{{/each}}
+            </article>
+
+          {{else if isTemperature}}
+            <div class="cst-temperature-grid"><label>{{localize "CST.Current"}}<input type="number" step="0.1" min="-100" max="200" value="{{temperature.value}}" data-cst-temperature="value"></label><label>{{localize "CST.NormalMin"}}<input type="number" step="0.1" min="-100" max="200" value="{{temperature.normalMin}}" data-cst-temperature="normalMin"></label><label>{{localize "CST.NormalMax"}}<input type="number" step="0.1" min="-100" max="200" value="{{temperature.normalMax}}" data-cst-temperature="normalMax"></label><button type="button" data-action="save-temperature-settings" {{#unless isGM}}disabled{{/unless}}>{{localize "CST.Save"}}</button></div>
+
+          {{else if isSummary}}
+            <div class="cst-summary"><p class="cst-summary-text">{{summaryText}}</p><h3>{{localize "CST.ActiveProblems"}}</h3><ul class="cst-problems">{{#each problems}}<li><strong>{{label}}</strong><span>{{value}}</span></li>{{else}}<li>{{localize "CST.NoProblems"}}</li>{{/each}}</ul><h3>{{localize "CST.ActiveStates"}}</h3><ul class="cst-problems">{{#each customStates}}{{#if active}}<li><strong>{{name}}</strong><span>{{intensity}}/5</span></li>{{/if}}{{/each}}</ul></div>
+
+          {{else if isHistory}}
+            <div class="cst-history"><input type="search" data-cst-history-search value="{{historyQuery}}" placeholder="{{localize 'CST.HistorySearch'}}"><div class="cst-history-filters"><button type="button" data-action="set-history-category" data-category="all">{{localize "CST.FilterAll"}}</button><button type="button" data-action="set-history-category" data-category="body">{{localize "CST.Section.body"}}</button><button type="button" data-action="set-history-category" data-category="injury">{{localize "CST.Injuries"}}</button><button type="button" data-action="set-history-category" data-category="mental">{{localize "CST.Section.mental"}}</button><button type="button" data-action="set-history-category" data-category="needs">{{localize "CST.Section.needs"}}</button><button type="button" data-action="set-history-category" data-category="system">{{localize "CST.Section.settings"}}</button></div>{{#if historyWarning}}<div class="cst-warning">{{localize "CST.HistoryLarge"}}</div>{{/if}}<ol>{{#each history}}<li><time datetime="{{timestamp}}">{{timestamp}}</time><em>{{category}}</em><strong>{{label}}</strong><span>{{oldValue}} → {{newValue}}</span>{{#if userName}}<small>{{userName}}</small>{{/if}}{{#if reason}}<small>{{reason}}</small>{{/if}}</li>{{else}}<li>{{localize "CST.HistoryEmpty"}}</li>{{/each}}</ol>{{#if historyMore}}<button type="button" data-action="history-load-more">{{localize "CST.LoadMore"}}</button>{{/if}}</div>
+
+          {{else if isSettings}}
+            <div class="cst-settings">
+              <section><h3>{{localize "CST.SettingsProfile"}}</h3><div class="cst-settings-actions"><button type="button" data-action="save-profile-settings" {{#unless isGM}}disabled{{/unless}}>{{localize "CST.EditProfile"}}</button><button type="button" data-action="use-actor-name" {{#unless isGM}}disabled{{/unless}}>{{localize "CST.UseActorName"}}</button><button type="button" data-action="use-actor-image" {{#unless isGM}}disabled{{/unless}}>{{localize "CST.UseActorImage"}}</button><button type="button" data-action="open-journal">{{localize "CST.OpenJournal"}}</button><button type="button" data-action="open-notes">{{localize "CST.OpenNotes"}}</button></div></section>
+              <section><h3>{{localize "CST.Systems"}}</h3><div class="cst-settings-actions"><button type="button" data-action="toggle-setting" data-path="config.physicalEnabled">{{localize "CST.Section.body"}}: {{#if data.config.physicalEnabled}}✓{{else}}×{{/if}}</button><button type="button" data-action="toggle-setting" data-path="config.painEnabled">{{localize "CST.Ribbon.Pain"}}: {{#if data.config.painEnabled}}✓{{else}}×{{/if}}</button><button type="button" data-action="toggle-setting" data-path="config.mentalEnabled">{{localize "CST.Section.mental"}}: {{#if data.config.mentalEnabled}}✓{{else}}×{{/if}}</button><button type="button" data-action="toggle-setting" data-path="config.emotionalEnabled">{{localize "CST.Section.emotional"}}: {{#if data.config.emotionalEnabled}}✓{{else}}×{{/if}}</button><button type="button" data-action="toggle-setting" data-path="config.needsEnabled">{{localize "CST.Section.needs"}}: {{#if data.config.needsEnabled}}✓{{else}}×{{/if}}</button><button type="button" data-action="toggle-setting" data-path="config.temperatureEnabled">{{localize "CST.PageTemperature"}}: {{#if data.config.temperatureEnabled}}✓{{else}}×{{/if}}</button><button type="button" data-action="toggle-setting" data-path="config.customStatesEnabled">{{localize "CST.CustomStates"}}: {{#if data.config.customStatesEnabled}}✓{{else}}×{{/if}}</button></div></section>
+              <section><h3>{{localize "CST.Maintenance"}}</h3><div class="cst-settings-actions"><button type="button" data-action="repair-pages">{{localize "CST.RepairPages"}}</button><button type="button" data-action="restore-notes">{{localize "CST.RestoreNotes"}}</button><button type="button" data-action="run-diagnostics">{{localize "CST.Diagnostics"}}</button><button type="button" data-action="import-json" {{#unless isGM}}disabled{{/unless}}>{{localize "CST.Import"}}</button>{{#if hasLegacy}}<button type="button" data-action="migrate-profile" {{#unless isGM}}disabled{{/unless}}>{{localize "CST.Migrate"}}</button>{{/if}}</div></section>
+              <section><h3>{{localize "CST.CustomStates"}}</h3><button type="button" data-action="add-custom-state" {{#unless isGM}}disabled{{/unless}}>{{localize "CST.Add"}}</button>{{#each customStates}}<div class="cst-setting-row"><span>{{name}} · {{intensity}}/5</span><button type="button" data-action="edit-custom-state" data-index="{{@index}}">{{localize "CST.Edit"}}</button>{{#if active}}<button type="button" data-action="archive-custom-state" data-index="{{@index}}">{{localize "CST.Archive"}}</button>{{else}}<button type="button" data-action="restore-custom-state" data-index="{{@index}}">{{localize "CST.Restore"}}</button>{{/if}}</div>{{/each}}</section>
+            </div>
+
+          {{else}}
+            <div class="cst-metric-grid">{{#each metrics}}<article class="cst-card">{{#if art}}<img class="cst-metric-art" src="{{art}}" alt="" loading="lazy">{{/if}}<h3>{{label}}</h3><div class="cst-value">{{value}}<small>{{unit}}</small></div><input type="range" min="{{min}}" max="{{max}}" step="{{step}}" value="{{value}}" data-path="{{path}}" data-action="metric-range"><input type="number" min="{{min}}" max="{{max}}" step="{{step}}" value="{{value}}" data-path="{{path}}" data-action="metric-number"><input type="text" maxlength="500" data-reason-for="{{path}}" placeholder="{{localize 'CST.Reason'}}"><div class="cst-quick"><button type="button" data-action="metric-adjust" data-path="{{path}}" data-delta="-1">−</button><button type="button" data-action="metric-adjust" data-path="{{path}}" data-delta="1">+</button>{{#if custom}}<button type="button" data-action="edit-custom-axis" data-area="{{../section}}" data-index="{{customIndex}}">{{localize "CST.Edit"}}</button>{{/if}}</div></article>{{else}}<p>{{localize "CST.NoProblems"}}</p>{{/each}}</div>
+            {{#if isMental}}<div class="cst-subsection"><h3>{{localize "CST.Conditions"}}</h3><button type="button" data-action="add-condition" data-area="mental">{{localize "CST.Add"}}</button>{{#each mentalConditions}}<div class="cst-setting-row"><span>{{name}} · {{intensity}}/5</span><button type="button" data-action="edit-condition" data-area="mental" data-id="{{id}}">{{localize "CST.Edit"}}</button>{{#if active}}<button type="button" data-action="archive-condition" data-area="mental" data-id="{{id}}">{{localize "CST.Archive"}}</button>{{else}}<button type="button" data-action="restore-condition" data-area="mental" data-id="{{id}}">{{localize "CST.Restore"}}</button>{{/if}}</div>{{/each}}</div><button type="button" data-action="add-custom-axis" data-area="mental">{{localize "CST.AddCustomAxis"}}</button>{{/if}}
+            {{#if isEmotional}}<div class="cst-subsection"><h3>{{localize "CST.Conditions"}}</h3><button type="button" data-action="add-condition" data-area="emotional">{{localize "CST.Add"}}</button>{{#each emotionalConditions}}<div class="cst-setting-row"><span>{{name}} · {{intensity}}/5</span><button type="button" data-action="edit-condition" data-area="emotional" data-id="{{id}}">{{localize "CST.Edit"}}</button>{{#if active}}<button type="button" data-action="archive-condition" data-area="emotional" data-id="{{id}}">{{localize "CST.Archive"}}</button>{{else}}<button type="button" data-action="restore-condition" data-area="emotional" data-id="{{id}}">{{localize "CST.Restore"}}</button>{{/if}}</div>{{/each}}</div><button type="button" data-action="add-custom-axis" data-area="emotional">{{localize "CST.AddCustomAxis"}}</button>{{/if}}
+            {{#if isNeeds}}<div class="cst-subsection"><h3>{{localize "CST.CustomNeeds"}}</h3><button type="button" data-action="add-custom-need">{{localize "CST.Add"}}</button>{{#each data.needs.custom}}<div class="cst-setting-row"><span>{{label}} · {{value}}</span><button type="button" data-action="edit-custom-need" data-index="{{@index}}">{{localize "CST.Edit"}}</button></div>{{/each}}</div>{{/if}}
+          {{/if}}
+        </section>
+      </main>
+    </div>
+  {{/if}}
+</section>

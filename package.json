@@ -1,0 +1,11 @@
+{
+  "name": "character-state-tracker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "validate": "node tools/validate-release.mjs",
+    "build": "python tools/build-release.py",
+    "release:check": "npm test && npm run validate && npm run build"
+  }
+}

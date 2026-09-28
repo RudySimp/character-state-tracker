@@ -1,0 +1,17 @@
+node_modules/
+*.zip
+*.rar
+*.7z
+*.log
+*.tmp
+*.bak
+*.swp
+Thumbs.db
+desktop.ini
+.DS_Store
+.idea/
+.env
+.env.*
+dist/
+.snapshot-audit/
+.asset-staging/

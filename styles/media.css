@@ -1,0 +1,28 @@
+.cst-metric-art {
+  float: right;
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  margin: 0 0 0.4rem 0.5rem;
+}
+
+.cst-card > input[type="number"],
+.cst-card > input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0.25rem 0;
+  padding: 0.4rem;
+  color: inherit;
+  background: #181a22;
+  border: 1px solid var(--cst-border);
+  border-radius: 4px;
+}
+
+.cst-settings section {
+  padding: 0.8rem;
+  background: var(--cst-card);
+  border: 1px solid var(--cst-border);
+  border-radius: 6px;
+}
+
+.cst-settings section h3 { margin: 0.1rem 0 0.7rem; }
