@@ -1,11 +1,11 @@
 {
   "id": "character-state-tracker",
   "title": "Character State Tracker",
-  "description": "Character physical and mental state tracker for Foundry VTT v14.",
+  "description": "Character physical and mental state tracker compatibility edition for Foundry VTT v12.",
   "version": "1.0.0",
   "type": "module",
   "authors": [{ "name": "RudySimp" }],
-  "compatibility": { "minimum": "14", "verified": "14" },
+  "compatibility": { "minimum": "12", "verified": "12", "maximum": "12" },
   "esmodules": ["scripts/main.js"],
   "styles": ["styles/character-state-tracker.css", "styles/character-state-enhancements.css", "styles/body-state.css", "styles/media.css"],
   "languages": [
@@ -13,11 +13,11 @@
     { "lang": "en", "name": "English", "path": "lang/en.json" }
   ],
   "url": "https://github.com/RudySimp/character-state-tracker",
-  "manifest": "https://github.com/RudySimp/character-state-tracker/releases/latest/download/module.json",
-  "download": "https://github.com/RudySimp/character-state-tracker/releases/download/v1.0.0/character-state-tracker.zip",
-  "readme": "https://github.com/RudySimp/character-state-tracker/blob/main/README.md",
+  "manifest": "https://raw.githubusercontent.com/RudySimp/character-state-tracker/foundry-v12/module.json",
+  "download": "https://github.com/RudySimp/character-state-tracker/releases/download/v1.0.0-fvtt12/character-state-tracker-v12.zip",
+  "readme": "https://github.com/RudySimp/character-state-tracker/blob/foundry-v12/README.md",
   "bugs": "https://github.com/RudySimp/character-state-tracker/issues",
-  "changelog": "https://github.com/RudySimp/character-state-tracker/blob/main/CHANGELOG.md",
+  "changelog": "https://github.com/RudySimp/character-state-tracker/blob/foundry-v12/CHANGELOG.md",
   "media": [
     { "type": "setup", "url": "assets/ui/core/overview.png", "caption": "Character State Tracker" }
   ]

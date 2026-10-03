@@ -1,12 +1,20 @@
-# Character State Tracker
+# Character State Tracker — Foundry VTT v12 compatibility edition
 
-Character State Tracker is a system-agnostic Foundry VTT v14 module for physical, mental, emotional, and needs tracking.
+This branch is intended only for **Foundry VTT v12**. The `main` branch and the primary `v1.0.0` release target Foundry VTT v14.
+
+V12 installation and update manifest:
+
+```text
+https://raw.githubusercontent.com/RudySimp/character-state-tracker/foundry-v12/module.json
+```
+
+Character State Tracker is a system-agnostic Foundry VTT v12 module for physical, mental, emotional, and needs tracking.
 
 ## Installation
 
 In **Add-on Modules → Install Module**, use:
 
-`https://github.com/RudySimp/character-state-tracker/releases/latest/download/module.json`
+`https://raw.githubusercontent.com/RudySimp/character-state-tracker/foundry-v12/module.json`
 
 After activation, open the tracker from the Journal directory or with `Ctrl+C`. Mutations require GM permission and players remain subject to Journal permissions.
 
@@ -31,9 +39,9 @@ npm run validate
 npm run build
 ```
 
-The deterministic build creates `dist/character-state-tracker.zip`, `dist/module.json`, and `dist/SHA256SUMS.txt`. The archive has no wrapper directory and uses POSIX path separators.
+The deterministic build creates `dist/character-state-tracker-v12.zip`, `dist/module.json`, and `dist/SHA256SUMS.txt`. The archive has no wrapper directory and uses POSIX path separators.
 
-See [docs/ASSET_MAP.md](docs/ASSET_MAP.md) for the runtime asset map and [RELEASE_NOTES_1.0.0.md](RELEASE_NOTES_1.0.0.md) for the release checklist.
+See [docs/ASSET_MAP.md](docs/ASSET_MAP.md) for the runtime asset map, [docs/V12_COMPATIBILITY.md](docs/V12_COMPATIBILITY.md) for the API audit, and [RELEASE_NOTES_1.0.0_FOUNDRY12.md](RELEASE_NOTES_1.0.0_FOUNDRY12.md) for release notes.
 
 ## Interface sections
 

@@ -9,7 +9,7 @@ from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
-ZIP_PATH = DIST / "character-state-tracker.zip"
+ZIP_PATH = DIST / "character-state-tracker-v12.zip"
 RUNTIME_ROOTS = ("scripts", "styles", "templates", "lang", "assets")
 ROOT_FILES = ("module.json", "README.md", "README_EN.md", "CHANGELOG.md")
 EXCLUDED_PARTS = {".git", ".github", "tests", "tools", "docs", "dist", "node_modules", "_reference", "_rejected"}
@@ -57,7 +57,7 @@ def validate_manifest() -> dict:
     if manifest.get("id") != "character-state-tracker":
         fail("Unexpected module id")
     version = manifest.get("version")
-    expected = f"/v{version}/character-state-tracker.zip"
+    expected = f"/v{version}-fvtt12/character-state-tracker-v12.zip"
     if not str(manifest.get("download", "")).endswith(expected):
         fail("Manifest download URL does not match version")
     return manifest

@@ -1,4 +1,4 @@
-# Foundry VTT v14 smoke plan
+# Foundry VTT v12 smoke plan
 
 Automated Node tests cover factories, schema migration, normalization, backup round-trip, summary, history, image URL policy, and cue registry. The release validator additionally checks JSON, localization parity, relative named imports, source markers, runtime paths, ZIP policy, and manifest URLs.
 

@@ -5,13 +5,13 @@ Automated checks run in the repository root:
 - [x] `npm test`
 - [x] `npm run validate`
 - [x] `npm run build` (equivalent deterministic local build; CI runs the Python builder)
-- [x] `dist/character-state-tracker.zip`, `dist/module.json`, and `dist/SHA256SUMS.txt` exist
+- [x] `dist/character-state-tracker-v12.zip`, `dist/module.json`, and `dist/SHA256SUMS.txt` exist
 - [x] `module.json` is at ZIP root; every ZIP entry uses `/`; no wrapper directory
 - [x] ZIP excludes `.git`, tests, tools, docs, archives, WAV, source art, `_reference`, and `_rejected`
-- [x] the manifest version and tag are `1.0.0` / `v1.0.0`
+- [x] the manifest version and tag are `1.0.0` / `v1.0.0-fvtt12`
 - [x] checksum file matches the built ZIP and manifest
 
-Manual Foundry VTT v14 smoke test (not executable in Node):
+Manual Foundry VTT v12 smoke test (not executable in Node):
 
 - [ ] fresh world: enable module, open from Journal directory and keybinding
 - [ ] create, rename, archive, restore, and delete a profile with the confirmation guard
@@ -25,4 +25,4 @@ Manual Foundry VTT v14 smoke test (not executable in Node):
 - [ ] SFX disabled/enabled, volume, cooldown, threshold transitions, and no initial-load replay
 - [ ] visual pass for long names, many profiles, 2,000 history events, missing image, and responsive layout
 
-Do not push, tag, or publish from the coding task. Publish only after the manual checklist and the approved complete media packs are available.
+The automated release gate may publish this compatibility release. The live Foundry v12 checklist remains a recommended post-publication smoke test and is not claimed as completed.

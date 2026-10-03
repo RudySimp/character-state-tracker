@@ -1,12 +1,20 @@
-# Character State Tracker
+# Character State Tracker — Foundry VTT v12 compatibility edition
 
-Модуль для Foundry Virtual Tabletop v14, который хранит физическое, ментальное, эмоциональное состояние и потребности персонажа в одном профиле JournalEntry.
+Эта ветка предназначена только для **Foundry VTT v12**. Основная ветка `main` и основной релиз `v1.0.0` предназначены для Foundry VTT v14.
+
+Manifest для установки и обновлений v12:
+
+```text
+https://raw.githubusercontent.com/RudySimp/character-state-tracker/foundry-v12/module.json
+```
+
+Модуль для Foundry Virtual Tabletop v12, который хранит физическое, ментальное, эмоциональное состояние и потребности персонажа в одном профиле JournalEntry.
 
 ## Установка
 
 В Foundry откройте **Add-on Modules → Install Module** и вставьте:
 
-`https://github.com/RudySimp/character-state-tracker/releases/latest/download/module.json`
+`https://raw.githubusercontent.com/RudySimp/character-state-tracker/foundry-v12/module.json`
 
 После активации модуль запускается кнопкой в каталоге журналов или клавишей `Ctrl+C`. Все изменения профиля выполняет GM; игроки получают только доступ, который разрешён правами Journal.
 
@@ -31,9 +39,9 @@ npm run validate
 npm run build
 ```
 
-Сборка создаёт `dist/character-state-tracker.zip`, `dist/module.json` и `dist/SHA256SUMS.txt`. ZIP не содержит внешнюю wrapper-папку и использует POSIX-разделители.
+Сборка создаёт `dist/character-state-tracker-v12.zip`, `dist/module.json` и `dist/SHA256SUMS.txt`. ZIP не содержит внешнюю wrapper-папку и использует POSIX-разделители.
 
-Подробная карта ресурсов находится в [docs/ASSET_MAP.md](docs/ASSET_MAP.md), история релиза — в [RELEASE_NOTES_1.0.0.md](RELEASE_NOTES_1.0.0.md).
+Подробная карта ресурсов находится в [docs/ASSET_MAP.md](docs/ASSET_MAP.md), аудит API — в [docs/V12_COMPATIBILITY.md](docs/V12_COMPATIBILITY.md), история релиза — в [RELEASE_NOTES_1.0.0_FOUNDRY12.md](RELEASE_NOTES_1.0.0_FOUNDRY12.md).
 
 ## Разделы интерфейса
 
